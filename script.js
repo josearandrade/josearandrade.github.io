@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
 const projects = [
     {
         title: "Portal InfobioJr",
-        description: "Description here",
-        url: "https://infobiojr.com.br/",
+        description: "Portal made for the InfobioJr company, a junior company in the field of biotechnology. Hosted by São Paulo University (USP).",
+        url: "projects/portalinfobiojr.html",
         image: "assets/images/infobiojr_portal.png"
     },
     {
