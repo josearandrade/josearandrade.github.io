@@ -70,37 +70,37 @@ const projects = [
     },
     {
         title: "Contact Plugin InfobioJr",
-        description: "Description here",
+        description: "A contact experience for InfobioJr that makes it easy for prospective clients to send questions and project requests.",
         url: "https://infobiojr.com.br/contato",
         image: "assets/images/infobiojr_contato.png"
     },
     {
         title: "Excel Landpage InfobioJr",
-        description: "Description here",
+        description: "A conversion-focused landing page presenting InfobioJr's Excel solution and guiding visitors toward the next step.",
         url: "https://infobiojr.com.br/excel",
         image: "assets/images/infobiojr_excel.png"
     },
     {
         title: "Sales Plugin InfobioJr",
-        description: "Description here",
+        description: "A registration flow for InfobioJr, designed to collect leads and support the company's sales process.",
         url: "https://infobiojr.com.br/inscricao",
         image: "assets/images/infobiojr_sales.png"
     },
     {
         title: "Grupyum",
-        description: "Description here",
+        description: "A Python desktop application that automates image-processing tasks for a medical-imaging research workflow.",
         url: "https://github.com/josearandrade/grupyum",
         image: "assets/images/grupyum.png"
     },
     {
         title: "PictureToText",
-        description: "Description here",
+        description: "A Python utility that extracts text from images, turning visual content into editable and searchable text.",
         url: "https://github.com/josearandrade/pictureToText",
         image: "assets/images/picturetotext.png"
     },
     {
         title: "PSQI forms",
-        description: "Description here",
+        description: "Digital forms for the Pittsburgh Sleep Quality Index (PSQI), created for a health-focused technical challenge.",
         url: "https://github.com/josearandrade/desafioInneraHealth",
         image: "assets/images/picturetotext.png"
     }
