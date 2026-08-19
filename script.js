@@ -111,6 +111,16 @@ function createProjectTiles() {
     projects.forEach(project => {
         const tile = document.createElement('div');
         tile.className = 'project-tile';
+        const repositoryUrl = project.url.startsWith('https://github.com/');
+        const repositoryActions = repositoryUrl ? `
+            <div class="repo-actions">
+                <a href="${project.url}/stargazers" target="_blank" rel="noopener noreferrer" class="repo-action">
+                    <i data-lucide="star"></i> Star
+                </a>
+                <a href="${project.url}/fork" target="_blank" rel="noopener noreferrer" class="repo-action">
+                    <i data-lucide="git-fork"></i> Fork
+                </a>
+            </div>` : '';
         tile.innerHTML = `
             <div class="project-thumbnail mb-4">
                 <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover">
@@ -118,15 +128,8 @@ function createProjectTiles() {
             </div>
             <h3 class="text-xl font-bold mb-2">${project.title}</h3>
             <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">${project.description}</p>
-            <a href="${project.url}" target="_blank" class="read-more">find more <i data-lucide="github"></i></a>
-            <div class="repo-actions">
-                <a href="${project.url}/stargazers" target="_blank" class="repo-action">
-                    <i data-lucide="star"></i> Star
-                </a>
-                <a href="${project.url}/fork" target="_blank" class="repo-action">
-                    <i data-lucide="git-fork"></i> Fork
-                </a>
-            </div>`;
+            <a href="${project.url}" target="_blank" rel="noopener noreferrer" class="read-more">find more <i data-lucide="external-link"></i></a>
+            ${repositoryActions}`;
         tile.querySelector('.project-thumbnail').addEventListener('click', () => window.open(project.url, '_blank'));
         projectsContainer.appendChild(tile);
     });
