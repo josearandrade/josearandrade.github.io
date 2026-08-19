@@ -117,50 +117,96 @@ const projects = [
     {
         title: "Universo do Presente",
         description: "A personalized-gift experience that combines art, 3D printing, and care to turn occasions into lasting memories.",
-        url: "https://universodopresente.vercel.app/"
+        url: "https://universodopresente.vercel.app/",
+        image: "assets/images/universo-do-presente.png"
     },
     {
         title: "Lista da Patinha",
         description: "An MVP gift-list platform for pet birthdays, featuring personalized 3D items for celebrating each companion.",
-        url: "https://www.listadapatinha.com.br/"
+        url: "https://www.listadapatinha.com.br/",
+        image: "assets/images/lista-da-patinha.png"
     },
     {
         title: "Dark River",
         description: "The official studio website for Dark River, showcasing its game portfolio, news, and latest updates.",
-        url: "https://www.darkriver.com.br/"
+        url: "https://www.darkriver.com.br/",
+        image: "assets/images/dark-river.png"
     }
 ];
 
+function createProjectTile(project) {
+    const tile = document.createElement('div');
+    tile.className = 'project-tile';
+    const repositoryUrl = project.url.startsWith('https://github.com/');
+    const repositoryActions = repositoryUrl ? `
+        <div class="repo-actions">
+            <a href="${project.url}/stargazers" target="_blank" rel="noopener noreferrer" class="repo-action">
+                <i data-lucide="star"></i> Star
+            </a>
+            <a href="${project.url}/fork" target="_blank" rel="noopener noreferrer" class="repo-action">
+                <i data-lucide="git-fork"></i> Fork
+            </a>
+        </div>` : '';
+    const thumbnail = project.image
+        ? `<img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover">`
+        : `<div class="project-placeholder" aria-hidden="true">${project.title}</div>`;
+
+    tile.innerHTML = `
+        <div class="project-thumbnail mb-4">
+            ${thumbnail}
+            <div class="redirect-icon"><i data-lucide="external-link"></i></div>
+        </div>
+        <h3 class="text-xl font-bold mb-2">${project.title}</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">${project.description}</p>
+        <a href="${project.url}" target="_blank" rel="noopener noreferrer" class="read-more">find more <i data-lucide="external-link"></i></a>
+        ${repositoryActions}`;
+    tile.querySelector('.project-thumbnail').addEventListener('click', () => window.open(project.url, '_blank'));
+    return tile;
+}
+
 function createProjectTiles() {
-    const projectsContainer = document.querySelector('#projects .grid');
-    projects.forEach(project => {
-        const tile = document.createElement('div');
-        tile.className = 'project-tile';
-        const repositoryUrl = project.url.startsWith('https://github.com/');
-        const repositoryActions = repositoryUrl ? `
-            <div class="repo-actions">
-                <a href="${project.url}/stargazers" target="_blank" rel="noopener noreferrer" class="repo-action">
-                    <i data-lucide="star"></i> Star
-                </a>
-                <a href="${project.url}/fork" target="_blank" rel="noopener noreferrer" class="repo-action">
-                    <i data-lucide="git-fork"></i> Fork
-                </a>
-            </div>` : '';
-        const thumbnail = project.image
-            ? `<img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover">`
-            : `<div class="project-placeholder" aria-hidden="true">${project.title}</div>`;
-        tile.innerHTML = `
-            <div class="project-thumbnail mb-4">
-                ${thumbnail}
-                <div class="redirect-icon"><i data-lucide="external-link"></i></div>
-            </div>
-            <h3 class="text-xl font-bold mb-2">${project.title}</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">${project.description}</p>
-            <a href="${project.url}" target="_blank" rel="noopener noreferrer" class="read-more">find more <i data-lucide="external-link"></i></a>
-            ${repositoryActions}`;
-        tile.querySelector('.project-thumbnail').addEventListener('click', () => window.open(project.url, '_blank'));
-        projectsContainer.appendChild(tile);
-    });
+    const projectsContainer = document.getElementById('projectsCarousel');
+    const projectsPerPage = 3;
+    const newestFirst = [...projects].reverse();
+    const pages = [];
+
+    for (let index = 0; index < newestFirst.length; index += projectsPerPage) {
+        const page = document.createElement('div');
+        page.className = 'projects-page';
+        page.hidden = index !== 0;
+        newestFirst.slice(index, index + projectsPerPage).forEach(project => page.appendChild(createProjectTile(project)));
+        projectsContainer.appendChild(page);
+        pages.push(page);
+    }
+
+    if (pages.length > 1) {
+        const controls = document.createElement('div');
+        controls.className = 'carousel-controls';
+        controls.innerHTML = `
+            <button type="button" class="carousel-button" aria-label="Previous project page"><i data-lucide="chevron-left"></i></button>
+            <span class="carousel-status" aria-live="polite"></span>
+            <button type="button" class="carousel-button" aria-label="Next project page"><i data-lucide="chevron-right"></i></button>`;
+        projectsContainer.appendChild(controls);
+
+        const previousButton = controls.querySelector('button:first-child');
+        const nextButton = controls.querySelector('button:last-child');
+        const status = controls.querySelector('.carousel-status');
+        let activePage = 0;
+        const showPage = pageIndex => {
+            activePage = pageIndex;
+            pages.forEach((page, index) => {
+                page.hidden = index !== activePage;
+            });
+            previousButton.disabled = activePage === 0;
+            nextButton.disabled = activePage === pages.length - 1;
+            status.textContent = `Page ${activePage + 1} of ${pages.length}`;
+        };
+
+        previousButton.addEventListener('click', () => showPage(activePage - 1));
+        nextButton.addEventListener('click', () => showPage(activePage + 1));
+        showPage(0);
+    }
+
     lucide.createIcons();
 }
 createProjectTiles();

@@ -185,6 +185,60 @@
         opacity: 1;
     }
 
+    .projects-page {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .carousel-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2.5rem;
+    }
+
+    .carousel-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 999px;
+        background: #007AFF;
+        color: #ffffff;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .carousel-button:hover:not(:disabled) {
+        transform: scale(1.08);
+    }
+
+    .carousel-button:disabled {
+        cursor: not-allowed;
+        opacity: 0.4;
+    }
+
+    .carousel-status {
+        min-width: 6rem;
+        text-align: center;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.875rem;
+    }
+
+    @media (min-width: 640px) {
+        .projects-page {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .projects-page {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
     .project-placeholder {
         display: flex;
         align-items: end;
