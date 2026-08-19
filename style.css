@@ -184,6 +184,20 @@
     .project-thumbnail:hover .redirect-icon {
         opacity: 1;
     }
+
+    .project-placeholder {
+        display: flex;
+        align-items: end;
+        width: 100%;
+        height: 100%;
+        padding: 1.25rem;
+        background: linear-gradient(135deg, #9C83FF, #FF9051);
+        color: #ffffff;
+        font-family: 'Space Mono', monospace;
+        font-size: 1.125rem;
+        font-weight: 700;
+        line-height: 1.25;
+    }
     
     .redirect-icon {
         position: absolute;

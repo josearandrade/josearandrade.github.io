@@ -103,6 +103,31 @@ const projects = [
         description: "Digital forms for the Pittsburgh Sleep Quality Index (PSQI), created for a health-focused technical challenge.",
         url: "https://github.com/josearandrade/desafioInneraHealth",
         image: "assets/images/picturetotext.png"
+    },
+    {
+        title: "DANI — Digital Pathology",
+        description: "A Streamlit application for reviewing large digital pathology slides, annotating regions, and exporting catalogued findings.",
+        url: "https://github.com/josearandrade/dani-app"
+    },
+    {
+        title: "Desafio Lacrei Saúde",
+        description: "A technical challenge developed for Lacrei Saúde, focused on creating a thoughtful health-care digital experience.",
+        url: "https://github.com/josearandrade/desafioLacreiSaude"
+    },
+    {
+        title: "Universo do Presente",
+        description: "A personalized-gift experience that combines art, 3D printing, and care to turn occasions into lasting memories.",
+        url: "https://universodopresente.vercel.app/"
+    },
+    {
+        title: "Lista da Patinha",
+        description: "An MVP gift-list platform for pet birthdays, featuring personalized 3D items for celebrating each companion.",
+        url: "https://www.listadapatinha.com.br/"
+    },
+    {
+        title: "Dark River",
+        description: "The official studio website for Dark River, showcasing its game portfolio, news, and latest updates.",
+        url: "https://www.darkriver.com.br/"
     }
 ];
 
@@ -121,9 +146,12 @@ function createProjectTiles() {
                     <i data-lucide="git-fork"></i> Fork
                 </a>
             </div>` : '';
+        const thumbnail = project.image
+            ? `<img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover">`
+            : `<div class="project-placeholder" aria-hidden="true">${project.title}</div>`;
         tile.innerHTML = `
             <div class="project-thumbnail mb-4">
-                <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover">
+                ${thumbnail}
                 <div class="redirect-icon"><i data-lucide="external-link"></i></div>
             </div>
             <h3 class="text-xl font-bold mb-2">${project.title}</h3>
